@@ -1,1 +1,2 @@
-save.json
+# 忽略该文件夹下的save.json
+/save.json
