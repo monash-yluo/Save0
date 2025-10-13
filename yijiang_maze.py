@@ -72,7 +72,6 @@ def main_299_challenge():
     plant(Entities.Bush)
 
     for i in range(299):
-
         substance = get_world_size() * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
         use_item(Items.Weird_Substance, substance)
         dfs_solve_maze()
@@ -87,4 +86,4 @@ def main():
         harvest()
 
 if __name__ == "__main__":
-    main()
+    main_299_challenge()
