@@ -25,7 +25,6 @@ def dfs_solve_maze():
 
         # 检查是否到达终点
         if get_entity_type() == Entities.Treasure:
-            harvest()
             return True
 
         # 尝试所有可能的方向
@@ -68,11 +67,24 @@ def get_opposite_dir(dir):
         return East
     return None
 
+def main_299_challenge():
+    clear()
+    plant(Entities.Bush)
+
+    for i in range(299):
+
+        substance = get_world_size() * 2 ** (num_unlocked(Unlocks.Mazes) - 1)
+        use_item(Items.Weird_Substance, substance)
+        dfs_solve_maze()
+
+    harvest()
+
+def main():
+    clear()
+    while True:
+        creat_maze()
+        dfs_solve_maze()
+        harvest()
 
 if __name__ == "__main__":
-    clear()
-
-    for i in range(300):
-        creat_maze()
-
-        dfs_solve_maze()
+    main()
