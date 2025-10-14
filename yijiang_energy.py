@@ -62,7 +62,7 @@ def one_loop(debug=False):
 				# 等待作物成熟
 				while can_harvest() == False:
 					pass
-				# 输出收获测量结果
+
 				# 调试输出当前位置和测量值
 				if debug:
 					quick_print("pos: ", get_pos_x(), get_pos_y(), "measure: ", measure())

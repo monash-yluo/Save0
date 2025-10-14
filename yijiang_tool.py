@@ -63,7 +63,7 @@ def plant_entity_row(entity, use_water=False, water_below=0.7):
 
 
 def do_all(function):
-	
+
 	# 存储所有子无人机的引用
 	drone_list = []
 	# 存储所有执行结果
@@ -73,8 +73,13 @@ def do_all(function):
 	move_to(0, 0)
 
 	# 当无人机数量不足时创建新无人机
-	for _ in range(get_size() - 1):
+	for _ in range(get_world_size() - 1):
 		if num_drones() < get_size():
+			drone_list.append(spawn_drone(function))
+		else:
+			for drone in drone_list:
+				wait_for(drone)
+
 			drone_list.append(spawn_drone(function))
 
 		move(North)

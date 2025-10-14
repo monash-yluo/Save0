@@ -1,33 +1,19 @@
+from yijiang_tool import *
+
 if __name__ == "__main__":
 	clear()
 
-	while (True):
-		for y in range(get_world_size()):
-			for x in range(get_world_size()):
+	def test():
+		result = []
 
-				if can_harvest():
+		for _ in range(get_world_size()):
+			plant_entity(Entities.Carrot, True)
+			result.append((get_pos_x(), get_pos_y()))
+			move(East)
 
-					harvest()
-	
-					if (y >= get_world_size() // 2 and False):
+		return result
 
-						if (get_ground_type() != Grounds.Soil):
-							till()
+	result = do_all(test)
 
-						# print(get_water())
-						if (get_water() < 0.7):
-							use_item(Items.Water)
-
-						plant(Entities.Carrot)
-
-					else:
-						if (x + y) % 2 == 0:
-
-							if (get_water() < 0.7):
-								use_item(Items.Water)
-
-							plant(Entities.Tree)
-	
-				move(East)
-
-			move(North)
+	for row in result:
+		quick_print(row)
