@@ -64,36 +64,36 @@ def plant_entity_row(entity, use_water=False, water_below=0.7):
 
 def do_all(function, dir=North):
 
-    # 存储所有子无人机的引用
-    drone_list = []
-    # 存储所有执行结果
-    result = []
+	# 存储所有子无人机的引用
+	drone_list = []
+	# 存储所有执行结果
+	result = []
 
-    # 移动至初始位置(0, 0)
-    move_to(0, 0)
+	# 移动至初始位置(0, 0)
+	move_to(0, 0)
 
-    # 当无人机数量不足时创建新无人机
-    for _ in range(get_world_size() - 1):
-        if num_drones() < get_size():
-            drone_list.append(spawn_drone(function))
-        else:
-            for drone in drone_list:
-                wait_for(drone)
+	# 当无人机数量不足时创建新无人机
+	for _ in range(get_world_size() - 1):
+		if num_drones() < get_size():
+			drone_list.append(spawn_drone(function))
+		else:
+			for drone in drone_list:
+				wait_for(drone)
 
-            drone_list.append(spawn_drone(function))
+			drone_list.append(spawn_drone(function))
 
-        move(dir)
+		move(dir)
 
-    # 主无人机最后一行执行任务
-    last_result = function()
+	# 主无人机最后一行执行任务
+	last_result = function()
 
-    # 获得子无人机返回值
-    for drone in drone_list:
-        result.append(wait_for(drone))
-    # 合并自己的返回值
-    result.append(last_result)
+	# 获得子无人机返回值
+	for drone in drone_list:
+		result.append(wait_for(drone))
+	# 合并自己的返回值
+	result.append(last_result)
 
-    return result
+	return result
 
 def list_reverse(arr):
 	return arr[::-1]

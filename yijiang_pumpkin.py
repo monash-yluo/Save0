@@ -93,7 +93,7 @@ def main():
 
 if __name__ == "__main__":
 	# main()
-	# clear()
+	clear()
 	# 先中一整个
 	# while(True):
 	# 	for _ in range(2):

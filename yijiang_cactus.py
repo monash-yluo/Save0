@@ -8,25 +8,25 @@ def plant_cactus_row():
 
 
 def bubble_sort(dir):
-    # 冒泡排序
-    start_x = get_pos_x()
-    start_y = get_pos_y()
+	# 冒泡排序
+	start_x = get_pos_x()
+	start_y = get_pos_y()
 
-    for i in range(get_world_size() - 1):
-        for j in range(get_world_size() - 1 - i):
+	for i in range(get_world_size() - 1):
+		for j in range(get_world_size() - 1 - i):
 			
 			# 获取大小
-            cur_value = measure()
-            east_value = measure(dir)
+			cur_value = measure()
+			east_value = measure(dir)
 
 			# 比较大小并且交换
-            if cur_value > east_value:
-                swap(dir)
+			if cur_value > east_value:
+				swap(dir)
 
-            move(dir)
+			move(dir)
 
-        # 回到起点
-        move_to(start_x, start_y)
+		# 回到起点
+		move_to(start_x, start_y)
 
 
 if __name__ == "__main__":
