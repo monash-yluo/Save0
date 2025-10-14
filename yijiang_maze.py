@@ -7,7 +7,7 @@ def creat_maze():
 def dfs_solve_maze():
 	start_x, start_y = get_pos_x(), get_pos_y()
 
-	stack = [(start_x, start_y, None)]  # (x, y, 到达此位置的方向)
+	stack = [(start_x, start_y, None)]  #(x, y, 往哪走)
 	visited = set()
 	visited.add((start_x, start_y))
 	path = [(start_x, start_y, None)]  # 实际移动的路径

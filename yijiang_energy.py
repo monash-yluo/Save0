@@ -82,10 +82,36 @@ def one_loop(debug=False):
 		drone_list = []  # 重置无人机列表
 
 
+def energy_row_only_15():
+	for _ in range(get_world_size()):
+
+		plant_entity(Entities.Sunflower, True)
+		for _ in range(10):
+			leaf = measure()
+
+			if leaf == 15:
+				break
+
+			harvest()
+			plant_entity(Entities.Sunflower, True)
+
+		move(East)
+
+
+def energy_row_haverst():
+	for _ in range(get_world_size()):
+		harvest()
+
+		plant_entity(Entities.Sunflower, True)
+
+		move(East)
+
 
 if __name__ == "__main__":
 	clear()
 
 	while True:
-		one_loop(True)
-	
+		# one_loop(True)
+
+		do_all(energy_row_only_15)
+		do_all(energy_row_haverst)
