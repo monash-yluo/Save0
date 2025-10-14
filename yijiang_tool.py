@@ -8,7 +8,7 @@ def plant_entity(plant_entity, use_water=False, water_below=0.7):
 	# 作物类型不匹配时重新种植
 	if get_entity_type() != plant_entity:
 		# 胡萝卜和南瓜需要松土条件
-		if plant_entity in (Entities.Carrot, Entities.Pumpkin, Entities.Sunflower):
+		if plant_entity in (Entities.Carrot, Entities.Pumpkin, Entities.Sunflower, Entities.Cactus):
 			# 检查当前地块是否为可种植的土壤
 			if get_ground_type() != Grounds.Soil:
 				till()  # 松土操作
@@ -62,38 +62,38 @@ def plant_entity_row(entity, use_water=False, water_below=0.7):
 		move(East)
 
 
-def do_all(function):
+def do_all(function, dir=North):
 
-	# 存储所有子无人机的引用
-	drone_list = []
-	# 存储所有执行结果
-	result = []
+    # 存储所有子无人机的引用
+    drone_list = []
+    # 存储所有执行结果
+    result = []
 
-	# 移动至初始位置(0, 0)
-	move_to(0, 0)
+    # 移动至初始位置(0, 0)
+    move_to(0, 0)
 
-	# 当无人机数量不足时创建新无人机
-	for _ in range(get_world_size() - 1):
-		if num_drones() < get_size():
-			drone_list.append(spawn_drone(function))
-		else:
-			for drone in drone_list:
-				wait_for(drone)
+    # 当无人机数量不足时创建新无人机
+    for _ in range(get_world_size() - 1):
+        if num_drones() < get_size():
+            drone_list.append(spawn_drone(function))
+        else:
+            for drone in drone_list:
+                wait_for(drone)
 
-			drone_list.append(spawn_drone(function))
+            drone_list.append(spawn_drone(function))
 
-		move(North)
+        move(dir)
 
-	# 主无人机最后一行执行任务
-	last_result = function()
+    # 主无人机最后一行执行任务
+    last_result = function()
 
-	# 获得子无人机返回值
-	for drone in drone_list:
-		result.append(wait_for(drone))
-	# 合并自己的返回值
-	result.append(last_result)
+    # 获得子无人机返回值
+    for drone in drone_list:
+        result.append(wait_for(drone))
+    # 合并自己的返回值
+    result.append(last_result)
 
-	return result
+    return result
 
 def list_reverse(arr):
 	return arr[::-1]
