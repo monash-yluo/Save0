@@ -1,5 +1,12 @@
 from yijiang_tool import *
 
+def get_size():
+	# 无人机数量和世界大小的较小值
+	if get_world_size() < max_drones():
+		return get_world_size()
+	else:
+		return max_drones()
+
 
 def scan_row():
 	# 扫描这一行都有没有南瓜
@@ -17,11 +24,13 @@ def scan_row():
 
 	return row_data
 
+
 def plant_pumkin_row():
-	# 先种植一排南瓜
+	# 种植一排南瓜
 	for _ in range(get_world_size()):
 		plant_entity(Entities.Pumpkin, True)
 		move(East)
+
 
 def harvest_pumkin_row():
 	# 采集一排南瓜
@@ -36,12 +45,13 @@ def harvest_pumkin_row():
 		move(East)
 
 
+# 弃用
 def pumpkin_row():
 	
 	plant_pumkin_row()
 	return scan_row()
 
-
+# 弃用
 def get_max_rect(data):
 	max_area = 0
 	max_rect = None
@@ -59,7 +69,7 @@ def get_max_rect(data):
 
 	return max_rect
 
-
+# 弃用
 def main():
 	clear()
 
@@ -81,13 +91,23 @@ def main():
 
 	quick_print(pumpkin_data)
 
+
+def do_all(function):
+	drone_list = []
+	move_to(0, 0)
+
+	for _ in range(get_size() - 1):
+		if num_drones() < get_size():
+			drone_list.append(spawn_drone(function))
+		move(North)
+
+	function()
+
 if __name__ == "__main__":
 	# main()
-	clear()
+
 	while(True):
 		for _ in range(2):
 			do_all(plant_pumkin_row)
-
+	
 		do_all(harvest_pumkin_row)
-
-	list({"x"})

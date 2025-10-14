@@ -37,7 +37,7 @@ def drone_plant():
 	
 	list = []
 	
-	for _ in range(49):
+	for _ in range(4):
 					
 		if get_companion() == None:
 			plant(Entities.Carrot)

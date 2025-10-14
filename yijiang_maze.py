@@ -86,5 +86,4 @@ def main():
 		harvest()
 
 if __name__ == "__main__":
-	# main_299_challenge()
-	main()
+	main_299_challenge()
