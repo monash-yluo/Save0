@@ -30,9 +30,14 @@ def move_to(x,y):
 		
 def drone_plant():
 	
-	for _ in range(get_world_size() / max_drones()):
+	move(mun)
+	move(mun)
+	move(mun)
+	move(mun)
 	
-		move(i)
+	list = []
+	
+	for _ in range(49):
 					
 		if get_companion() == None:
 			plant(Entities.Carrot)
@@ -40,8 +45,12 @@ def drone_plant():
 			
 		else:
 			plant_type, (x, y) = get_companion()
-				
+			
 		move_to(x,y)
+		list.append((x,y))
+		
+		if get_water() < 0.7:
+			use_item(Items.Water)
 	
 		if get_entity_type() != plant_type:
 			if plant_type in (Entities.Carrot,Entities.Tree):
@@ -52,18 +61,29 @@ def drone_plant():
 			harvest()
 				
 		plant(plant_type)
+		
+	for i in range(len(list)): 
+		move_to(list[i][0],list[i][1])
+		if can_harvest():
+			harvest()
+
 
 if __name__ == "__main__":
+	clear()
 	while True:
-		list = [East, West, North, South]
 		for y in range(get_world_size()):
 			for x in range(get_world_size()):
-				for i in list:
+				for mun in [East, West, North, South]:
 					spawn_drone(drone_plant)
+				move(East)
+				move(East)
 				move(East)
 				move(East)
 			
 			move(North)
 			move(North)
-		
+			move(North)
+			move(North)
+
+
 	
