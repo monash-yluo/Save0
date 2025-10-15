@@ -78,13 +78,6 @@ def companion_task_v2():
 		plant_entity(companion[0], True)
 
 
-def till_row():
-
-	for _ in range(get_world_size()):
-		till()
-		move(East)
-
-
 if __name__ == "__main__":
 	clear()  # 初始化环境
 

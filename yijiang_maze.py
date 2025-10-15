@@ -4,6 +4,9 @@ def creat_maze():
 	use_item(Items.Weird_Substance, substance)
 
 
+		
+	
+
 def dfs_solve_maze():
 	start_x, start_y = get_pos_x(), get_pos_y()
 

@@ -17,6 +17,9 @@ def plant_entity(plant_entity, use_water=False, water_below=0.7):
 		plant(plant_entity)
 
 
+def move_to_tuple(pos):
+	move_to(pos[0], pos[1])
+
 # 移动到指定坐标
 def move_to(x, y):
 	current_x, current_y = get_pos_x(), get_pos_y()
@@ -97,3 +100,17 @@ def do_all(function, dir=North):
 
 def list_reverse(arr):
 	return arr[::-1]
+
+
+def till_row():
+
+	for _ in range(get_world_size()):
+		till()
+		move(East)
+
+
+def harvest_row():
+
+	for _ in range(get_world_size()):
+		harvest()
+		move(East)
