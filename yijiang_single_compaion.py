@@ -1,5 +1,5 @@
 from yijiang_tool import *
-
+from create_plant_matrix import create_plant_single_entity_matrix
 
 # 只负责种植需求植物的 伴生植物来提高产量
 # 每个无人机负责一行, 一直种需求植物并读取伴生植物
@@ -187,61 +187,127 @@ def plant_single_entity_with_companion_v3(entity_type):
 	do_all(second)
 
 
-# [(0, 0), (30, 2), (0, 28), (3, 4), (26, 31), (5, 29), (30, 7), (29, 25), (8, 3), (24, 3), (4, 24), (3, 9), (24, 27), (10, 30), (26, 9), (31, 21), (9, 7), (20, 0), (9, 24), (31, 12), (24, 22), (13, 2), (21, 8), (3, 19), (7, 12), (19, 28), (13, 26), (26, 14), (27, 18), (13, 7), (17, 4), (9, 19)]
 def plant_single_entity_with_companion_v4(entity_type):
 
-	def first():
-		plant_entity_row(entity_type, True)
+    plant_matrix = create_plant_single_entity_matrix(entity_type)
 
-	do_all(first)
+    def first():
+        plant_entity_with_dict(plant_matrix, True)
 
-	pos_list =[(0, 0), (30, 2), (0, 28), (3, 4), (26, 31), (5, 29), (30, 7), (29, 25), (8, 3), (24, 3), (4, 24), (3, 9), (24, 27), (10, 30), (26, 9), (31, 21), (9, 7), (20, 0), (9, 24), (31, 12), (24, 22), (13, 2), (21, 8), (3, 19), (7, 12), (19, 28), (13, 26), (26, 14), (27, 18), (13, 7), (17, 4), (9, 19)]
+    do_all(first)
 
-	def second():
-		while True:
+    # pos_list = [
+    # 	(0, 0),
+    # 	(30, 2),
+    # 	(0, 28),
+    # 	(3, 4),
+    # 	(26, 31),
+    # 	(5, 29),
+    # 	(30, 7),
+    # 	(29, 25),
+    # 	(8, 3),
+    # 	(24, 3),
+    # 	(4, 24),
+    # 	(3, 9),
+    # 	(24, 27),
+    # 	(10, 30),
+    # 	(26, 9),
+    # 	(31, 21),
+    # 	(9, 7),
+    # 	(20, 0),
+    # 	(9, 24),
+    # 	(31, 12),
+    # 	(24, 22),
+    # 	(13, 2),
+    # 	(21, 8),
+    # 	(3, 19),
+    # 	(7, 12),
+    # 	(19, 28),
+    # 	(13, 26),
+    # 	(26, 14),
+    # 	(27, 18),
+    # 	(13, 7),
+    # 	(17, 4),
+    # 	(9, 19),
+    # ]
 
-			companion = get_companion()
-			if get_entity_type() == entity_type and companion:
+    pos_list = [
+        (0, 0),
+        (1, 3),
+        (2, 6),
+        (3, 9),
+        (4, 12),
+        (5, 15),
+        (6, 18),
+        (7, 21),
+        (8, 24),
+        (9, 27),
+        (10, 30),
+        (11, 1),
+        (12, 4),
+        (13, 7),
+        (14, 10),
+        (15, 13),
+        (16, 16),
+        (17, 19),
+        (18, 22),
+        (19, 25),
+        (20, 28),
+        (21, 31),
+        (22, 2),
+        (23, 5),
+        (24, 8),
+        (25, 11),
+        (26, 14),
+        (27, 17),
+        (28, 20),
+        (29, 23),
+        (30, 26),
+        (31, 29)
+    ]
 
-				cur_pos = (get_pos_x(), get_pos_y())
-				comp_entity_type, comp_pos = companion
+    def second():
+        while True:
 
-				# 过去尝试种植
-				move_to_tuple(comp_pos)
-				harvest()
-				plant_entity(comp_entity_type, True)
-				# 回来收获
-				move_to_tuple(cur_pos)
-				harvest()
-				# 补种
-				plant_entity(entity_type, True)
-				# 移动到刚刚那个的伴生位置
-				move_to_tuple(comp_pos)
-				harvest()
-				# 补种
-				plant_entity(entity_type, True)
-				# 完工去下一位置
-				move_to((cur_pos[0] + 1) % get_world_size(), cur_pos[1])
-			else:
-				move(East)
+            companion = get_companion()
+            if get_entity_type() == entity_type and companion:
 
-	
+                cur_pos = (get_pos_x(), get_pos_y())
+                comp_entity_type, comp_pos = companion
 
+                # 过去尝试种植
+                move_to_tuple(comp_pos)
+                harvest()
+                plant_entity(comp_entity_type, True)
+                # 回来收获
+                move_to_tuple(cur_pos)
+                harvest()
+                # 补种
+                plant_entity(plant_matrix[(get_pos_x(), get_pos_y())], True)
+                # 移动到刚刚那个的伴生位置
+                move_to_tuple(comp_pos)
+                harvest()
+                # 补种
+                plant_entity(plant_matrix[(get_pos_x(), get_pos_y())], True)
+                # 完工去下一位置
+                move_to((cur_pos[0] + 1) % get_world_size(), cur_pos[1])
+            else:
+                move(East)
 
-	for i in range(len(pos_list) - 1):
-		def task():
-			move_to_tuple(pos_list[i])
+    for i in range(len(pos_list) - 1):
 
-			for _ in range(15000):
-				pass
+        def task():
+            move_to_tuple(pos_list[i])
 
-			second()
-		spawn_drone(task)
-	
-	i += 1
-	task()
-	
-		
+            for _ in range(15000):
+                pass
+
+            second()
+
+        spawn_drone(task)
+
+    i += 1
+    task()
 
 
 def main_v1(entity_type):
@@ -280,7 +346,7 @@ def main_v4(entity_type):
 	plant_single_entity_with_companion_v4(entity_type)
 
 
-
 if __name__ == '__main__':
 	
-	main_v4(Entities.Grass)
+	# 可以做三个成就 胡萝卜, 木材, 草, 只要改种植的实体类型
+	main_v4(Entities.Tree)

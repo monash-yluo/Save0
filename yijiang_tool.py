@@ -59,9 +59,14 @@ def get_size():
 
 
 def plant_entity_row(entity, use_water=False, water_below=0.7):
-	# 先种植一排南瓜
 	for _ in range(get_world_size()):
 		plant_entity(entity, use_water, water_below)
+		move(East)
+
+
+def plant_entity_with_dict(entity_dict, use_water=False, water_below=0.7):
+	for _ in range(get_world_size()):
+		plant_entity(entity_dict[(get_pos_x(), get_pos_y())], use_water, water_below)
 		move(East)
 
 

@@ -36,10 +36,27 @@ def create_plant_matrix():
 	return plant_matrix
 
 
-# def get_plant_matrix():
-#     plant_matrix
-#     # 全种向日葵
-#     for y in range(get_world_size()):
-#         for x in range(get_world_size()):
-#             if y == 0:
-#                 plant_matrix[y][x] = Entities.Sunflower
+def create_plant_single_entity_matrix(entity_type):
+	# 如果不是树, 就创建一个全部都是一样的
+
+	plant_matrix = {}
+
+	if entity_type == Entities.Tree:
+		for y in range(get_world_size()):
+			for x in range(get_world_size()):
+				if (x + y) % 2 == 0:
+					plant_matrix[(x, y)] = Entities.Tree
+				else:
+					plant_matrix[(x, y)] = Entities.Bush
+		return plant_matrix
+
+
+	for y in range(get_world_size()):
+		for x in range(get_world_size()):
+			plant_matrix[(x, y)] = entity_type
+
+
+	# 最后返回这个矩阵
+	return plant_matrix
+
+
