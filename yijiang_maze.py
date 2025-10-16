@@ -181,13 +181,9 @@ def main():
 		harvest()
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-	main_299_challenge()
-=======
 	# main_299_challenge()
 	# main()
 
 	clear()
 	creat_maze()
 	print(a_star_solve_maze())
->>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521

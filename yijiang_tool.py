@@ -8,11 +8,7 @@ def plant_entity(plant_entity, use_water=False, water_below=0.7):
 	# 作物类型不匹配时重新种植
 	if get_entity_type() != plant_entity:
 		# 胡萝卜和南瓜需要松土条件
-<<<<<<< HEAD
-		if plant_entity in (Entities.Carrot, Entities.Pumpkin):
-=======
 		if plant_entity in (Entities.Carrot, Entities.Pumpkin, Entities.Sunflower, Entities.Cactus):
->>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
 			# 检查当前地块是否为可种植的土壤
 			if get_ground_type() != Grounds.Soil:
 				till()  # 松土操作
@@ -52,8 +48,6 @@ def move_to(x, y):
 		move(move_dir_x)
 	for _ in range(steps_y):
 		move(move_dir_y)
-<<<<<<< HEAD
-=======
 
 
 def get_size():
@@ -125,4 +119,3 @@ def harvest_row():
 	for _ in range(get_world_size()):
 		harvest()
 		move(East)
->>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
