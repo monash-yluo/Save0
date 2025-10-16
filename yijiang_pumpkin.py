@@ -69,9 +69,6 @@ def get_max_rect(data):
 
 	return max_rect
 
-<<<<<<< HEAD
-# 弃用
-=======
 def ensure_pumpkin_row():
 	# 确保这一行有南瓜
 	for _ in range(get_world_size()):
@@ -83,7 +80,6 @@ def ensure_pumpkin_row():
 		move(East)
 
 
->>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
 def main():
 	clear()
 
@@ -119,14 +115,6 @@ def do_all(function):
 
 if __name__ == "__main__":
 	# main()
-<<<<<<< HEAD
-
-	while(True):
-		for _ in range(2):
-			do_all(plant_pumkin_row)
-	
-		do_all(harvest_pumkin_row)
-=======
 	clear()
 	# 先中一整个
 	# while(True):
@@ -140,4 +128,3 @@ if __name__ == "__main__":
 		do_all(ensure_pumpkin_row)
 
 		harvest()
->>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
