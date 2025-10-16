@@ -8,7 +8,11 @@ def plant_entity(plant_entity, use_water=False, water_below=0.7):
 	# 作物类型不匹配时重新种植
 	if get_entity_type() != plant_entity:
 		# 胡萝卜和南瓜需要松土条件
+<<<<<<< HEAD
 		if plant_entity in (Entities.Carrot, Entities.Pumpkin):
+=======
+		if plant_entity in (Entities.Carrot, Entities.Pumpkin, Entities.Sunflower, Entities.Cactus):
+>>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
 			# 检查当前地块是否为可种植的土壤
 			if get_ground_type() != Grounds.Soil:
 				till()  # 松土操作
@@ -16,6 +20,9 @@ def plant_entity(plant_entity, use_water=False, water_below=0.7):
 		# 种植目标作物
 		plant(plant_entity)
 
+
+def move_to_tuple(pos):
+	move_to(pos[0], pos[1])
 
 # 移动到指定坐标
 def move_to(x, y):
@@ -45,3 +52,77 @@ def move_to(x, y):
 		move(move_dir_x)
 	for _ in range(steps_y):
 		move(move_dir_y)
+<<<<<<< HEAD
+=======
+
+
+def get_size():
+	# 无人机数量和世界大小的较小值
+	if get_world_size() < max_drones():
+		return get_world_size()
+	else:
+		return max_drones()
+
+
+def plant_entity_row(entity, use_water=False, water_below=0.7):
+	for _ in range(get_world_size()):
+		plant_entity(entity, use_water, water_below)
+		move(East)
+
+
+def plant_entity_with_dict(entity_dict, use_water=False, water_below=0.7):
+	for _ in range(get_world_size()):
+		plant_entity(entity_dict[(get_pos_x(), get_pos_y())], use_water, water_below)
+		move(East)
+
+
+def do_all(function, dir=North):
+
+	# 存储所有子无人机的引用
+	drone_list = []
+	# 存储所有执行结果
+	result = []
+
+	# 移动至初始位置(0, 0)
+	move_to(0, 0)
+
+	# 当无人机数量不足时创建新无人机
+	for _ in range(get_world_size() - 1):
+		if num_drones() < get_size():
+			drone_list.append(spawn_drone(function))
+		else:
+			for drone in drone_list:
+				wait_for(drone)
+
+			drone_list.append(spawn_drone(function))
+
+		move(dir)
+
+	# 主无人机最后一行执行任务
+	last_result = function()
+
+	# 获得子无人机返回值
+	for drone in drone_list:
+		result.append(wait_for(drone))
+	# 合并自己的返回值
+	result.append(last_result)
+
+	return result
+
+def list_reverse(arr):
+	return arr[::-1]
+
+
+def till_row():
+
+	for _ in range(get_world_size()):
+		till()
+		move(East)
+
+
+def harvest_row():
+
+	for _ in range(get_world_size()):
+		harvest()
+		move(East)
+>>>>>>> 506babe0f4507a0701bd5a4784ea83acd9625521
